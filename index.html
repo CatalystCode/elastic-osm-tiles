@@ -38,7 +38,7 @@
 <h2>
 <a id="why-not-query-osm-data-from-overpass" class="anchor" href="#why-not-query-osm-data-from-overpass" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why not query OSM data from Overpass</h2>
 
-<p>Overpass is great for adhod queries into openstreetmap providing with granular filter capabilities. Overpass has strict data volume restrictions that will block service requests if requested map bounds exceeds a certain limit. Overpass is also incredibly slow, and using in a production environment is asking for a world of pain and anxiety.</p>
+<p>Overpass is great for adhod queries into openstreetmap providing with granular filter capabilities. Overpass has strict data volume restrictions that will block service requests if the requested map bounds results in processing more than 50,000 nodes. Overpass will also cancel any queries running in parellel from a given host.</p>
 
 <p>If you plan on using OSM in production, the data should be sourced from an environment within your control. </p>
 
