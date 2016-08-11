@@ -11,7 +11,7 @@ We expose REST API's that efficiently serve-up openstreetmap data that's queried
 We cache data from mapzens vector service into elastic, this way you can query the data however you want.
 
 ## Why not query OSM data from Overpass
-Overpass is great for adhod queries into openstreetmap providing with granular filter capabilities. Overpass has strict data volume restrictions that will block service requests if requested map bounds exceeds a certain limit. Overpass is also incredibly slow, and using in a production environment is asking for a world of pain and anxiety.
+Overpass is great for adhod queries into openstreetmap providing with granular filter capabilities. Overpass has strict data volume restrictions that will block service requests if the requested map bounds results in  processing more than 50,000 nodes. Overpass will also cancel any queries running in parellel from a given host. 
 
 If you plan on using OSM in production, the data should be sourced from an environment within your control. 
 
@@ -42,7 +42,7 @@ If you plan on using OSM in production, the data should be sourced from an envir
 - Run the solution in Visual Studio as the services project is set as the startup for the solution.
 - You can start querying an area by using the explore service as mentioned below. 
 
-### Services
+### Http Services
 #### Explore Service (Spatial Data API)
 URL:  
 `http://your-service-host/api/explore`
