@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Elastic-osm-tiles by CatalystCode</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Elastic-osm-tiles</h1>
+      <h2 class="project-tagline">Framework that crowdsources openstreetmap geojson based tile data into elasticsearch.</h2>
+      <a href="https://github.com/CatalystCode/elastic-osm-tiles" class="btn">View on GitHub</a>
+      <a href="https://github.com/CatalystCode/elastic-osm-tiles/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/CatalystCode/elastic-osm-tiles/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="elastic-openstreetmap-tiles" class="anchor" href="#elastic-openstreetmap-tiles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Elastic Openstreetmap Tiles</h1>
+
+<p>A C# based framework that crowdsources openstreetmap geojson based tile data into elasticsearch. Tile data is sourced directly from Mapzens super amazing tile vector <a href="https://mapzen.com/projects/vector-tiles/">service</a>. You will need to sign up for a <a href="https://mapzen.com/documentation/vector-tiles/api-keys-and-rate-limits/">free API key</a> before using this library.</p>
+
+<p>This project was inspired from the Cities Unlocked collaberation with Microsoft and Guidedogs. These elastic components are built off <a href="https://github.com/elastic/elasticsearch-net">NEST</a> which is the offical Elasticsearch.NET client. NEST provides a developer friendly abstraction into elastics REST API which translates C# lambda functions into elastic http API statements. NEST also has connection pooling baked in to remove failed nodes from the pool of connecting cluster nodes.</p>
+
+<h2>
+<a id="what-problem-does-this-library-solve" class="anchor" href="#what-problem-does-this-library-solve" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What problem does this library solve</h2>
+
+<p>Querying Openstreetmap data in your own environment involves setting up osmosis, putting a data import job in place, pre-loading your data server with planet files across the world which can take weeks to import. </p>
+
+<p>We expose REST API's that efficiently serve-up openstreetmap data that's queried off elastic search. This way, you gain access to spatial data from anywhere in the world without needing to host and load gigabytes of planet files. </p>
+
+<p>We cache data from mapzens vector service into elastic, this way you can query the data however you want.</p>
+
+<h2>
+<a id="why-not-query-osm-data-from-overpass" class="anchor" href="#why-not-query-osm-data-from-overpass" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why not query OSM data from Overpass</h2>
+
+<p>Overpass is great for adhod queries into openstreetmap providing with granular filter capabilities. Overpass has strict data volume restrictions that will block service requests if requested map bounds exceeds a certain limit. Overpass is also incredibly slow, and using in a production environment is asking for a world of pain and anxiety.</p>
+
+<p>If you plan on using OSM in production, the data should be sourced from an environment within your control. </p>
+
+<h2>
+<a id="prerequisites" class="anchor" href="#prerequisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisites</h2>
+
+<ul>
+<li>Mapzen Tile Server <a href="https://mapzen.com/documentation/vector-tiles/api-keys-and-rate-limits/">API key</a>
+</li>
+<li>Visual Studio</li>
+<li>An <a href="https://gist.github.com/erikschlegel/0f4330009c7c5ae83831889609a8bb7c#file-azureelasticclustersetup-md">Elastic Cluster</a> with basic auth setup.</li>
+<li>Elastic Places and Tiles <a href="https://github.com/erikschlegel/planet2elastic#setup-elastic-indexes">indexes</a>
+</li>
+</ul>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<ul>
+<li>git clone  this repository</li>
+<li>change into the new directory</li>
+</ul>
+
+<h2>
+<a id="running--development" class="anchor" href="#running--development" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running / Development</h2>
+
+<ul>
+<li>Open up the ElasticSpatial solution file in Visual Studio</li>
+<li>Modify the Web.config file(\solution\ElasticSpatial\Microsoft.PCT.OSM.Services\Web.config) and provide your elastic credentials and mapzen tile server key.</li>
+</ul>
+
+<div class="highlight highlight-source-cs"><pre>  &lt;appSettings&gt;
+    &lt;<span class="pl-k">add</span> key=<span class="pl-s"><span class="pl-pds">"</span>ElasticDefaultIndex<span class="pl-pds">"</span></span> <span class="pl-k">value</span>=<span class="pl-s"><span class="pl-pds">"</span>places<span class="pl-pds">"</span></span> /&gt;
+    &lt;<span class="pl-k">add</span> key=<span class="pl-s"><span class="pl-pds">"</span>ElasticCacheServerHost<span class="pl-pds">"</span></span> <span class="pl-k">value</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> /&gt;
+    &lt;<span class="pl-k">add</span> key=<span class="pl-s"><span class="pl-pds">"</span>ElasticCachePort<span class="pl-pds">"</span></span> <span class="pl-k">value</span>=<span class="pl-s"><span class="pl-pds">"</span>9200<span class="pl-pds">"</span></span> /&gt;
+    &lt;<span class="pl-k">add</span> key=<span class="pl-s"><span class="pl-pds">"</span>ElasticUsername<span class="pl-pds">"</span></span> <span class="pl-k">value</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> /&gt;
+    &lt;<span class="pl-k">add</span> key=<span class="pl-s"><span class="pl-pds">"</span>ElasticPwd<span class="pl-pds">"</span></span> <span class="pl-k">value</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> /&gt;
+    &lt;<span class="pl-k">add</span> key=<span class="pl-s"><span class="pl-pds">"</span>TileServer<span class="pl-pds">"</span></span> <span class="pl-k">value</span>=<span class="pl-s"><span class="pl-pds">"</span>http://vector.mapzen.com/osm/all/{0}/{1}/{2}.json?api_key={3}<span class="pl-pds">"</span></span> /&gt;
+    &lt;<span class="pl-k">add</span> key=<span class="pl-s"><span class="pl-pds">"</span>TileServerAPIKey<span class="pl-pds">"</span></span> <span class="pl-k">value</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> /&gt;
+  &lt;/appSettings&gt;</pre></div>
+
+<ul>
+<li>Run the solution in Visual Studio as the services project is set as the startup for the solution.</li>
+<li>You can start querying an area by using the explore service as mentioned below. </li>
+</ul>
+
+<h3>
+<a id="services" class="anchor" href="#services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Services</h3>
+
+<h4>
+<a id="explore-service-spatial-data-api" class="anchor" href="#explore-service-spatial-data-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Explore Service (Spatial Data API)</h4>
+
+<p>URL:<br>
+<code>http://your-service-host/api/explore</code></p>
+
+<p>Method:<br>
+<code>POST</code></p>
+
+<h5>
+<a id="payload-example-for-14-7th-ave-new-york-ny-10014" class="anchor" href="#payload-example-for-14-7th-ave-new-york-ny-10014" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Payload Example for 14 7th Ave, New York, NY 10014</h5>
+
+<pre><code>Content-Type: application/json; charset=UTF-8
+{
+ "Limit" : 30,
+ "CurrentLocation" : {
+       "Latitude": 40.7367711,
+       "Longitude":-74.0010207
+ },
+   "SearchRadius": 500
+} 
+
+</code></pre>
+
+<p>Return example:</p>
+
+<pre><code>[
+  {
+    "ResponseStatus": {
+      "ExecutionTimeMS": 170,
+      "ResponseExceptionMessage": null,
+      "ResponseException": null,
+      "StatusCode": 200
+    },
+    "ReturnedResultCount": 30,
+    "SourceResultCount": 30,
+    "Results": [
+      {
+        "StreetName": "West 12th Street",
+        "AddressLine": "125 West 12th Street",
+        "EntityId": "250473022",
+        "Latitude": 40.73653307,
+        "Type": "way",
+        "Longitude": -73.99871982,
+        "Name": "building",
+        "Tags": "building",
+        "SuperCategory": "Place"
+      },
+      {
+        "StreetName": "13th Street",
+        "AddressLine": "118 13th Street",
+        "EntityId": "250473919",
+        "Latitude": 40.73679568,
+        "Type": "way",
+        "Longitude": -73.99862307,
+        "Name": "13th St. Resdience Hall",
+        "Tags": "building",
+        "SuperCategory": "Place"
+      },
+</code></pre>
+
+<h3>
+<a id="c-elastic-services" class="anchor" href="#c-elastic-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C# Elastic Services</h3>
+
+<h4>
+<a id="locationexploreelasticservice" class="anchor" href="#locationexploreelasticservice" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LocationExploreElasticService</h4>
+
+<ul>
+<li>Usage</li>
+</ul>
+
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">var</span> requestFactory = <span class="pl-k">new</span> HttpRequestFactory();
+<span class="pl-k">var</span> tileServerBaseUri = ConfigurationHelper.GetSetting(<span class="pl-s"><span class="pl-pds">"</span>TileServer<span class="pl-pds">"</span></span>);
+<span class="pl-k">var</span> tileKey = ConfigurationHelper.GetSetting(<span class="pl-s"><span class="pl-pds">"</span>TileServerAPIKey<span class="pl-pds">"</span></span>);
+
+ <span class="pl-k">var</span> service = <span class="pl-k">new</span> LocationExploreElasticService(tileServerBaseUri, tileKey, TelemetryInstance.Current, requestFactory)
+{
+                ResultLimit = request.Limit
+};
+
+<span class="pl-k">var</span> response = <span class="pl-k">default</span>(IEnumerable&lt;Place&gt;);
+response = <span class="pl-k">await</span> service.SearchAsync(request.CurrentLocation, request.SearchRadius);</pre></div>
+
+<ul>
+<li>Unit Test
+
+<ul>
+<li>Project: Tests.Microsoft.PCT.OSM</li>
+<li>File: ElasticServiceTests.cs</li>
+<li>Sample Test: SpatialDataServiceHandlerTests_SuccessWhatsAroundMeCheck</li>
+</ul>
+</li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/CatalystCode/elastic-osm-tiles">Elastic-osm-tiles</a> is maintained by <a href="https://github.com/CatalystCode">CatalystCode</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
