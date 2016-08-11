@@ -100,3 +100,26 @@ Return example:
         "SuperCategory": "Place"
       },
 ```
+
+### C# Elastic Services
+#### LocationExploreElasticService
+- Usage
+
+```C#
+var requestFactory = new HttpRequestFactory();
+var tileServerBaseUri = ConfigurationHelper.GetSetting("TileServer");
+var tileKey = ConfigurationHelper.GetSetting("TileServerAPIKey");
+
+ var service = new LocationExploreElasticService(tileServerBaseUri, tileKey, TelemetryInstance.Current, requestFactory)
+{
+                ResultLimit = request.Limit
+};
+
+var response = default(IEnumerable<Place>);
+response = await service.SearchAsync(request.CurrentLocation, request.SearchRadius);
+```
+
+- Unit Test
+   - Project: Tests.Microsoft.PCT.OSM
+   - File: ElasticServiceTests.cs
+   - Sample Test: SpatialDataServiceHandlerTests_SuccessWhatsAroundMeCheck
