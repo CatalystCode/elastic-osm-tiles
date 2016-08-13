@@ -1,4 +1,6 @@
 # Elastic Openstreetmap Tiles
+
+[![Join the chat at https://gitter.im/CatalystCode/elastic-osm-tiles](https://badges.gitter.im/CatalystCode/elastic-osm-tiles.svg)](https://gitter.im/CatalystCode/elastic-osm-tiles?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 A C# based framework that crowdsources openstreetmap geojson based tile data into elasticsearch. Tile data is sourced directly from Mapzens super amazing tile vector [service](https://mapzen.com/projects/vector-tiles/). You will need to sign up for a [free API key](https://mapzen.com/documentation/vector-tiles/api-keys-and-rate-limits/) before using this library.
 
 This project was inspired from the Cities Unlocked collaberation with Microsoft and Guidedogs. These elastic components are built off [NEST](https://github.com/elastic/elasticsearch-net) which is the offical Elasticsearch.NET client. NEST provides a developer friendly abstraction into elastics REST API which translates C# lambda functions into elastic http API statements. NEST also has connection pooling baked in to remove failed nodes from the pool of connecting cluster nodes.
