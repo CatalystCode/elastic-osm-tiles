@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <parameters>
   <parameter name="ElasticCacheServerHost" defaultValue="">
-    <parameterEntry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='ElasticCacheServerHost']/@value" />
+    <parameterEntry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@name='ElasticCacheServerHost']" />
   </parameter>
   <parameter name="ElasticPwd" defaultValue="">
-    <parameterEntry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='ElasticPwd']/@value" />
+    <parameterEntry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@name='ElasticPwd']" />
   </parameter>
   <parameter name="ElasticUsername" defaultValue="">
-    <parameterEntry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='ElasticUsername']/@value" />
+    <parameterEntry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@name='ElasticUsername']" />
   </parameter>
   <parameter name="TileServerAPIKey" defaultValue="">
-    <parameterEntry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='TileServerAPIKey']/@value" />
+    <parameterEntry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@name='TileServerAPIKey']" />
   </parameter>
 </parameters>
