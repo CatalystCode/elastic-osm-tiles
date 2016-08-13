@@ -40,7 +40,6 @@ namespace Microsoft.PCT.OSM.Services
         /// <param name="TileKey">Mapzen vector tile service key.</param>
         /// <param name="telemetry">App Insight telemtry instance.</param>
         /// <param name="requestFactory">Factory class responsible for the request fanout.</param>
-        /// <param name="addressProviderUri">The OSM address provider URL.</param>
         protected ElasticRequestManager(string TileServerBaseUri, string TileKey,
                                         TelemetryClient telemetry, IHttpRequestFactory requestFactory)
         {

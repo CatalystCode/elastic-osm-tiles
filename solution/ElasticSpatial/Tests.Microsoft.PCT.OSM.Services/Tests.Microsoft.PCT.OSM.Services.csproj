@@ -109,6 +109,7 @@
     <Content Include="App.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="parameters.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

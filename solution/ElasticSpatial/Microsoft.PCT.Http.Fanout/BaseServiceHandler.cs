@@ -95,14 +95,14 @@ namespace Microsoft.PCT.Http.Fanout
                 throw new ArgumentNullException(nameof(request));
 
             var headers = ParseRelevantHeaders(requestHeaders);
-            var taskList = serviceProviders.Select(provider => SendPostRequestAsync(provider, request, token, headers));
+            var tileRequests = serviceProviders.Select(provider => SendPostRequestAsync(provider, request, token, headers));
 
             //Continous check if the response queue has been fully processed until the time to live has been triggered
-            return await taskList
+            return await tileRequests
                 .ToObservable(token)
-                .Where(response => !response.HasValue || response.Value != null)
+                .Where(tileResponse => !tileResponse.HasValue || tileResponse.Value != null)
                 .Select(Validate)
-                .Do(response => Log(response, deserializedRequest, headers))
+                .Do(tileResponse => Log(tileResponse, deserializedRequest, headers))
                 .ToList();
         }
 
