@@ -22,23 +22,24 @@
       <h1>
 <a id="elastic-openstreetmap-tiles" class="anchor" href="#elastic-openstreetmap-tiles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Elastic Openstreetmap Tiles</h1>
 
-<p>A C# based framework that crowdsources openstreetmap geojson based tile data into elasticsearch. Tile data is sourced directly from Mapzens super amazing tile vector <a href="https://mapzen.com/projects/vector-tiles/">service</a>. You will need to sign up for a <a href="https://mapzen.com/documentation/vector-tiles/api-keys-and-rate-limits/">free API key</a> before using this library.</p>
+<p><a href="https://gitter.im/CatalystCode/elastic-osm-tiles?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/CatalystCode/elastic-osm-tiles.svg" alt="Join the chat at https://gitter.im/CatalystCode/elastic-osm-tiles"></a>
+A C# based framework that crowdsources openstreetmap geojson based tile data into elasticsearch. Tile data is sourced directly from Mapzens super amazing tile vector <a href="https://mapzen.com/projects/vector-tiles/">service</a>. You'll need to sign up for a <a href="https://mapzen.com/documentation/vector-tiles/api-keys-and-rate-limits/">free API key</a> before using this library.</p>
 
-<p>This project was inspired from the Cities Unlocked collaberation with Microsoft and Guidedogs. These elastic components are built off <a href="https://github.com/elastic/elasticsearch-net">NEST</a> which is the offical Elasticsearch.NET client. NEST provides a developer friendly abstraction into elastics REST API which translates C# lambda functions into elastic http API statements. NEST also has connection pooling baked in to remove failed nodes from the pool of connecting cluster nodes.</p>
+<p>This project was inspired from the Cities Unlocked collaboration with Microsoft and Guidedogs. These elastic components are built off <a href="https://github.com/elastic/elasticsearch-net">NEST</a> which is the offical Elasticsearch.NET client. NEST provides a developer friendly abstraction into elastics REST API which translates C# lambda functions into elastic http API statements. NEST also has connection pooling baked in to remove failed nodes from the pool of connecting cluster nodes.</p>
 
 <h2>
-<a id="what-problem-does-this-library-solve" class="anchor" href="#what-problem-does-this-library-solve" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What problem does this library solve</h2>
+<a id="what-problem-does-this-library-help-solve" class="anchor" href="#what-problem-does-this-library-help-solve" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What problem does this library help solve?</h2>
 
 <p>Querying Openstreetmap data in your own environment involves setting up osmosis, putting a data import job in place, pre-loading your data server with planet files across the world which can take weeks to import. </p>
 
 <p>We expose REST API's that efficiently serve-up openstreetmap data that's queried off elastic search. This way, you gain access to spatial data from anywhere in the world without needing to host and load gigabytes of planet files. </p>
 
-<p>We cache data from mapzens vector service into elastic, this way you can query the data however you want.</p>
+<p>Vector tile data is cached in elastic to reduce query latency.</p>
 
 <h2>
-<a id="why-not-query-osm-data-from-overpass" class="anchor" href="#why-not-query-osm-data-from-overpass" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why not query OSM data from Overpass</h2>
+<a id="why-not-use-overpass" class="anchor" href="#why-not-use-overpass" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why not use Overpass?</h2>
 
-<p>Overpass is great for adhod queries into openstreetmap providing with granular filter capabilities. Overpass has strict data volume restrictions that will block service requests if the requested map bounds results in processing more than 50,000 nodes. Overpass will also cancel any queries running in parellel from a given host.</p>
+<p>Overpass is great for adhoc queries, but has strict data volume restrictions that will block service requests that processes more than 50,000 nodes. Overpass will also cancel any queries running in parellel from a given host. </p>
 
 <p>If you plan on using OSM in production, the data should be sourced from an environment within your control. </p>
 
@@ -86,7 +87,7 @@
 </ul>
 
 <h3>
-<a id="services" class="anchor" href="#services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Services</h3>
+<a id="http-services" class="anchor" href="#http-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Http Services</h3>
 
 <h4>
 <a id="explore-service-spatial-data-api" class="anchor" href="#explore-service-spatial-data-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Explore Service (Spatial Data API)</h4>
