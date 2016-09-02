@@ -1,19 +1,19 @@
 # Elastic Openstreetmap Tiles
 
 [![Join the chat at https://gitter.im/CatalystCode/elastic-osm-tiles](https://badges.gitter.im/CatalystCode/elastic-osm-tiles.svg)](https://gitter.im/CatalystCode/elastic-osm-tiles?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-A C# based framework that crowdsources openstreetmap geojson based tile data into elasticsearch. Tile data is sourced directly from Mapzens super amazing tile vector [service](https://mapzen.com/projects/vector-tiles/). You will need to sign up for a [free API key](https://mapzen.com/documentation/vector-tiles/api-keys-and-rate-limits/) before using this library.
+A C# based framework that crowdsources openstreetmap geojson based tile data into elasticsearch. Tile data is sourced directly from Mapzens super amazing tile vector [service](https://mapzen.com/projects/vector-tiles/). You'll need to sign up for a [free API key](https://mapzen.com/documentation/vector-tiles/api-keys-and-rate-limits/) before using this library.
 
-This project was inspired from the Cities Unlocked collaberation with Microsoft and Guidedogs. These elastic components are built off [NEST](https://github.com/elastic/elasticsearch-net) which is the offical Elasticsearch.NET client. NEST provides a developer friendly abstraction into elastics REST API which translates C# lambda functions into elastic http API statements. NEST also has connection pooling baked in to remove failed nodes from the pool of connecting cluster nodes.
+This project was inspired from the Cities Unlocked collaboration with Microsoft and Guidedogs. These elastic components are built off [NEST](https://github.com/elastic/elasticsearch-net) which is the offical Elasticsearch.NET client. NEST provides a developer friendly abstraction into elastics REST API which translates C# lambda functions into elastic http API statements. NEST also has connection pooling baked in to remove failed nodes from the pool of connecting cluster nodes.
 
-## What problem does this library solve
+## What problem does this library help solve?
 Querying Openstreetmap data in your own environment involves setting up osmosis, putting a data import job in place, pre-loading your data server with planet files across the world which can take weeks to import. 
 
 We expose REST API's that efficiently serve-up openstreetmap data that's queried off elastic search. This way, you gain access to spatial data from anywhere in the world without needing to host and load gigabytes of planet files. 
 
-We cache data from mapzens vector service into elastic, this way you can query the data however you want.
+Vector tile data is cached in elastic to reduce query latency.
 
 ## Why not query OSM data from Overpass
-Overpass is great for adhod queries into openstreetmap providing with granular filter capabilities. Overpass has strict data volume restrictions that will block service requests if the requested map bounds results in  processing more than 50,000 nodes. Overpass will also cancel any queries running in parellel from a given host. 
+Overpass is great for adhoc queries, but has strict data volume restrictions that will block service requests that processes more than 50,000 nodes. Overpass will also cancel any queries running in parellel from a given host. 
 
 If you plan on using OSM in production, the data should be sourced from an environment within your control. 
 
